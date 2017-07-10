@@ -27,12 +27,24 @@ var myform = $("form#contactForm");
             emailjs.send("default_service", "template_mTQxeMHd", {from_name:name,reply_to:email, name:name, notes: "<p>Telefono : "+phone+" <BR>Correo: "+email+"<BR>"+"Mensaje:"+message+"</p>"})
                     .then(function () {
                         debugger;
-                        alert("Sent!");
-                        myform.find("button").text("Send");
+                        $('#success').html("<div class='alert alert-success'>");
+                    $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                        .append("</button>");
+                    $('#success > .alert-success')
+                        .append("<strong>Su Mensaje a sido Enviado. </strong>");
+                    $('#success > .alert-success')
+                        .append('</div>');
+
+                    //clear all fields
+                    $('#contactForm').trigger("reset");
                     }, function (err) {
-                        debugger;
-                        alert("Send email failed!\r\n Response:\n " + JSON.stringify(err));
-                        myform.find("button").text("Send");
+                             $('#success').html("<div class='alert alert-danger'>");
+                    $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                        .append("</button>");
+                    $('#success > .alert-danger').append("<strong>Disculpe " + firstName + " en estos momentos no se pudo enviar el mensaje.</strong> Puede enviarnos un correo a <a href='mailto:lodgingmarti@gmail.com?Subject=Message_Me from myprogrammingblog.com;>me@example.com</a> ? Disculpe los incovenientes!");
+                    $('#success > .alert-danger').append('</div>');
+                    //clear all fields
+                    $('#contactForm').trigger("reset");
                     });
 
 //            $.ajax({
